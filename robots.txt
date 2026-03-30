@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://taskersync.com/sitemap.xml
