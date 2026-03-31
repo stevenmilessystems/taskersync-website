@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup | TaskerSync</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.10);
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .card-header {
+      background: #111;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      background: #fff;
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .logo-name {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .card-body { padding: 36px 32px 32px; }
+    h1 { font-size: 26px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .subtitle { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 28px; }
+    .checklist {
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 28px;
+    }
+    .checklist-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 12px; }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.4;
+    }
+    .checklist-item:last-child { margin-bottom: 0; }
+    .check { color: #22c55e; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .btn {
+      width: 100%;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 0;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .privacy-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .center { text-align: center; padding: 16px 0; }
+    .big-emoji { font-size: 48px; margin-bottom: 16px; display: block; }
+    .success-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 20px;
+      text-align: left;
+    }
+    .success-box p { font-size: 14px; color: #166534; margin-bottom: 6px; line-height: 1.5; }
+    .success-box p:last-child { margin-bottom: 0; }
+    .success-box .title { font-weight: 700; color: #15803d; margin-bottom: 10px; }
+    .error-box {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #991b1b;
+      line-height: 1.5;
+    }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #111;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .progress-bar {
+      background: #f0f0f0;
+      border-radius: 8px;
+      height: 6px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .progress-fill {
+      background: #111;
+      height: 100%;
+      border-radius: 8px;
+      transition: width 0.4s ease;
+    }
+    a { color: #111; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div class="logo-icon">⚡</div>
+    <span class="logo-name">TaskerSync</span>
+  </div>
+  <div class="card-body" id="app">
+    <div class="center">
+      <div class="spinner"></div>
+      <p style="color:#666;font-size:15px;">Verifying your setup link...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+  const SETUP_API = "https://personal-life-assistant-bfa28ce4.base44.app/functions/setupClientInstall";
+  const SCOPES = [
+    "https://www.googleapis.com/auth/tasks",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/script.projects",
+    "https://www.googleapis.com/auth/script.deployments"
+  ].join(" ");
+  const GOOGLE_CLIENT_ID = "704697751016-j3vk4pq57c71ber6imce919if2memq23.apps.googleusercontent.com";
+
+  const app = document.getElementById("app");
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+
+  let clientName = "";
+
+  function render(html) { app.innerHTML = html; }
+
+  function showError(msg) {
+    render(`
+      <div class="center">
+        <span class="big-emoji">❌</span>
+        <h1 style="font-size:22px;">Something went wrong</h1>
+        <div class="error-box">${msg}</div>
+        <p style="margin-top:20px;font-size:13px;color:#999;">
+          Need help? Email <a href="mailto:stevenmilessystems@gmail.com">stevenmilessystems@gmail.com</a>
+        </p>
+      </div>
+    `);
+  }
+
+  function showReady(name, alreadySetup) {
+    clientName = name;
+    const firstName = (name || "there").split(" ")[0];
+    render(`
+      <h1>${alreadySetup ? "Reconnect TaskerSync" : "Hey " + firstName + " 👋"}</h1>
+      <p class="subtitle">
+        ${alreadySetup
+          ? "Your TaskerSync is already set up. Click below to reconnect or reinstall."
+          : "You're one click away from having AI action your Google Tasks automatically. Connect your Google account and we'll handle the rest."}
+      </p>
+      <div class="checklist">
+        <p class="checklist-title">What happens when you connect:</p>
+        <div class="checklist-item"><span class="check">✓</span><span>TaskerSync installs to your Google account automatically</span></div>
+        <div class="checklist-item"><span class="check">✓</span><span>Add a task and the AI responds within minutes</span></div>
+        <div class="checklist-item"><span class="check">✓</span><span>Responses appear directly in your task notes</span></div>
+        <div class="checklist-item"><span class="check">✓</span><span>No manual setup. No code. Nothing to configure.</span></div>
+      </div>
+      <button class="btn" id="connectBtn" onclick="startConnect()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Connect Google &amp; Install TaskerSync
+      </button>
+      <p class="privacy-note">We only request access to Google Tasks and Drive. We never read your emails, calendar, or other data.</p>
+    `);
+  }
+
+  function showConnecting() {
+    render(`
+      <div class="center">
+        <span class="big-emoji">🔗</span>
+        <h1 style="font-size:22px;">Connecting to Google...</h1>
+        <p style="color:#666;font-size:15px;margin-top:8px;">Complete the Google sign-in popup to continue.</p>
+      </div>
+    `);
+  }
+
+  function showInstalling() {
+    render(`
+      <div class="center">
+        <span class="big-emoji" style="font-size:40px;">⚙️</span>
+        <h1 style="font-size:22px;">Installing TaskerSync...</h1>
+        <p style="color:#666;font-size:15px;margin-top:8px;">Setting up your personal AI script. This takes about 10 seconds.</p>
+        <div class="progress-bar" style="margin-top:24px;">
+          <div class="progress-fill" id="progress" style="width:30%;"></div>
+        </div>
+      </div>
+    `);
+    // Animate progress bar
+    let w = 30;
+    const interval = setInterval(() => {
+      w = Math.min(w + 8, 88);
+      const el = document.getElementById("progress");
+      if (el) el.style.width = w + "%";
+      else clearInterval(interval);
+    }, 800);
+  }
+
+  function showDone() {
+    render(`
+      <div class="center">
+        <span class="big-emoji">🎉</span>
+        <h1>You're all set!</h1>
+        <p class="subtitle" style="margin-top:10px;">
+          TaskerSync is installed and running. Add a task to Google Tasks and the AI will respond within minutes.
+        </p>
+        <div class="success-box">
+          <p class="title">What to do now:</p>
+          <p>1. Open <strong>Google Tasks</strong> on your phone or computer</p>
+          <p>2. Add any task — research, a draft, a reminder, anything</p>
+          <p>3. The AI will respond directly in the task notes within minutes</p>
+        </div>
+      </div>
+    `);
+  }
+
+  function startConnect() {
+    showConnecting();
+    // Wait for GIS to load
+    const tryInit = (attempts) => {
+      if (window.google && window.google.accounts) {
+        window.google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CLIENT_ID,
+          scope: SCOPES,
+          callback: async (response) => {
+            if (response.error) {
+              showError("Google authorisation was cancelled or failed. Please <a href=''>try again</a>.");
+              return;
+            }
+            await installScript(response.access_token);
+          },
+        }).requestAccessToken();
+      } else if (attempts > 0) {
+        setTimeout(() => tryInit(attempts - 1), 300);
+      } else {
+        showError("Google sign-in failed to load. Please refresh the page and try again.");
+      }
+    };
+    tryInit(20);
+  }
+
+  async function installScript(googleAccessToken) {
+    showInstalling();
+    try {
+      const res = await fetch(SETUP_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, google_access_token: googleAccessToken }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        showDone();
+      } else {
+        showError(data.error || "Installation failed. Please contact support.");
+      }
+    } catch (err) {
+      showError("Network error during installation. Please refresh and try again.");
+    }
+  }
+
+  // Init: validate token
+  async function init() {
+    if (!token) {
+      showError("Invalid setup link. Please use the link from your welcome email.");
+      return;
+    }
+    try {
+      const res = await fetch(`${SETUP_API}?token=${encodeURIComponent(token)}`);
+      const data = await res.json();
+      if (data.error) {
+        showError(data.error);
+      } else {
+        showReady(data.client_name, data.already_setup);
+      }
+    } catch (err) {
+      showError("Could not verify your setup link. Please check your connection and try again.");
+    }
+  }
+
+  init();
+</script>
+
+</body>
+</html>
