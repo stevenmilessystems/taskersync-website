@@ -84,9 +84,29 @@
       justify-content: center;
       gap: 10px;
       transition: opacity 0.15s;
+      text-decoration: none;
     }
     .btn:hover { opacity: 0.85; }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-outline {
+      width: 100%;
+      background: #fff;
+      color: #111;
+      border: 2px solid #111;
+      border-radius: 10px;
+      padding: 13px 0;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.15s;
+      text-decoration: none;
+      margin-top: 12px;
+    }
+    .btn-outline:hover { background: #f5f5f5; }
     .privacy-note {
       margin-top: 14px;
       font-size: 12px;
@@ -107,6 +127,17 @@
     .success-box p { font-size: 14px; color: #166534; margin-bottom: 6px; line-height: 1.5; }
     .success-box p:last-child { margin-bottom: 0; }
     .success-box .title { font-weight: 700; color: #15803d; margin-bottom: 10px; }
+    .info-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: #1e40af;
+      line-height: 1.6;
+    }
+    .info-box strong { font-weight: 700; }
     .error-box {
       background: #fef2f2;
       border: 1px solid #fecaca;
@@ -117,6 +148,29 @@
       color: #991b1b;
       line-height: 1.5;
     }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #111;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .step-row:last-child { margin-bottom: 0; }
     .spinner {
       width: 32px; height: 32px;
       border: 3px solid #e5e7eb;
@@ -140,6 +194,30 @@
       transition: width 0.4s ease;
     }
     a { color: #111; }
+    .api-link {
+      display: block;
+      background: #f9f9f9;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 13px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+    }
+    .api-link:hover { background: #f0f0f0; }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #444;
+    }
+    .checkbox-row input { width: 18px; height: 18px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -157,7 +235,6 @@
   </div>
 </div>
 
-<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script>
@@ -175,15 +252,17 @@
   const token = params.get("token");
 
   let clientName = "";
+  let accessToken = "";
 
   function render(html) { app.innerHTML = html; }
 
-  function showError(msg) {
+  function showError(msg, showRetry) {
     render(`
       <div class="center">
         <span class="big-emoji">❌</span>
         <h1 style="font-size:22px;">Something went wrong</h1>
         <div class="error-box">${msg}</div>
+        ${showRetry ? `<button class="btn" style="margin-top:20px;" onclick="showApiStep()">Try Again</button>` : ''}
         <p style="margin-top:20px;font-size:13px;color:#999;">
           Need help? Email <a href="mailto:stevenmilessystems@gmail.com">stevenmilessystems@gmail.com</a>
         </p>
@@ -191,24 +270,42 @@
     `);
   }
 
-  function showReady(name, alreadySetup) {
-    clientName = name;
-    const firstName = (name || "there").split(" ")[0];
+  function showApiStep() {
+    const firstName = (clientName || "there").split(" ")[0];
     render(`
-      <h1>${alreadySetup ? "Reconnect TaskerSync" : "Hey " + firstName + " 👋"}</h1>
-      <p class="subtitle">
-        ${alreadySetup
-          ? "Your TaskerSync is already set up. Click below to reconnect or reinstall."
-          : "You're one click away from having AI action your Google Tasks automatically. Connect your Google account and we'll handle the rest."}
-      </p>
+      <h1>One quick step first</h1>
+      <p class="subtitle">Before connecting, you need to enable the Google Apps Script API in your account. This only takes 30 seconds.</p>
+
       <div class="checklist">
-        <p class="checklist-title">What happens when you connect:</p>
-        <div class="checklist-item"><span class="check">✓</span><span>TaskerSync installs to your Google account automatically</span></div>
-        <div class="checklist-item"><span class="check">✓</span><span>Add a task and the AI responds within minutes</span></div>
-        <div class="checklist-item"><span class="check">✓</span><span>Responses appear directly in your task notes</span></div>
-        <div class="checklist-item"><span class="check">✓</span><span>No manual setup. No code. Nothing to configure.</span></div>
+        <p class="checklist-title">How to enable it:</p>
+        <div class="step-row">
+          <span class="step-badge">1</span>
+          <span>Click the button below to open Google Apps Script settings</span>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">2</span>
+          <span>Make sure you're signed in with the Google account you want to use for TaskerSync</span>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">3</span>
+          <span>Toggle <strong>"Google Apps Script API"</strong> to <strong>On</strong></span>
+        </div>
+        <div class="step-row">
+          <span class="step-badge">4</span>
+          <span>Come back here and click <strong>"I've enabled it"</strong></span>
+        </div>
       </div>
-      <button class="btn" id="connectBtn" onclick="startConnect()">
+
+      <a href="https://script.google.com/home/usersettings" target="_blank" class="btn">
+        Open Apps Script Settings ↗
+      </a>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="apiCheck" onchange="toggleConnectBtn()" />
+        I've enabled the Apps Script API
+      </label>
+
+      <button class="btn" id="connectBtn" onclick="startConnect()" disabled style="opacity:0.4;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
           <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -217,8 +314,15 @@
         </svg>
         Connect Google &amp; Install TaskerSync
       </button>
-      <p class="privacy-note">We only request access to Google Tasks and Drive. We never read your emails, calendar, or other data.</p>
+      <p class="privacy-note">We only access Google Tasks and Drive. We never read your emails, calendar, or personal data.</p>
     `);
+  }
+
+  function toggleConnectBtn() {
+    const checked = document.getElementById("apiCheck").checked;
+    const btn = document.getElementById("connectBtn");
+    btn.disabled = !checked;
+    btn.style.opacity = checked ? "1" : "0.4";
   }
 
   function showConnecting() {
@@ -242,7 +346,6 @@
         </div>
       </div>
     `);
-    // Animate progress bar
     let w = 30;
     const interval = setInterval(() => {
       w = Math.min(w + 8, 88);
@@ -272,7 +375,6 @@
 
   function startConnect() {
     showConnecting();
-    // Wait for GIS to load
     const tryInit = (attempts) => {
       if (window.google && window.google.accounts) {
         window.google.accounts.oauth2.initTokenClient({
@@ -280,19 +382,20 @@
           scope: SCOPES,
           callback: async (response) => {
             if (response.error) {
-              showError("Google authorisation was cancelled or failed. Please <a href=''>try again</a>.");
+              showApiStep();
+              showError("Google authorisation was cancelled or failed. Please try again.", false);
               return;
             }
             await installScript(response.access_token);
           },
         }).requestAccessToken();
       } else if (attempts > 0) {
-        setTimeout(() => tryInit(attempts - 1), 300);
+        setTimeout(() => tryInit(attempts - 1), 500);
       } else {
-        showError("Google sign-in failed to load. Please refresh the page and try again.");
+        showError("Google Sign-In failed to load. Please refresh and try again.", false);
       }
     };
-    tryInit(20);
+    tryInit(10);
   }
 
   async function installScript(googleAccessToken) {
@@ -306,35 +409,42 @@
       const data = await res.json();
       if (data.ok) {
         showDone();
+      } else if (data.error && data.error.toLowerCase().includes("apps script api")) {
+        showError(
+          `The Apps Script API isn't enabled yet. <br><br>
+          Please <a href="https://script.google.com/home/usersettings" target="_blank">click here to enable it</a>,
+          then come back and try again.`,
+          true
+        );
       } else {
-        showError(data.error || "Installation failed. Please contact support.");
+        showError(data.error || "Installation failed. Please try again.", true);
       }
-    } catch (err) {
-      showError("Network error during installation. Please refresh and try again.");
+    } catch (e) {
+      showError("Network error. Please check your connection and try again.", true);
     }
   }
 
-  // Init: validate token
+  // Init
   async function init() {
     if (!token) {
-      showError("Invalid setup link. Please use the link from your welcome email.");
+      showError("No setup link detected. Please use the link from your welcome email.", false);
       return;
     }
     try {
       const res = await fetch(`${SETUP_API}?token=${encodeURIComponent(token)}`);
       const data = await res.json();
-      if (data.error) {
-        showError(data.error);
-      } else {
-        showReady(data.client_name, data.already_setup);
+      if (!data.ok) {
+        showError(data.error || "Invalid or expired setup link.", false);
+        return;
       }
-    } catch (err) {
-      showError("Could not verify your setup link. Please check your connection and try again.");
+      clientName = data.client_name || "";
+      showApiStep();
+    } catch (e) {
+      showError("Could not verify your setup link. Please check your connection.", false);
     }
   }
 
   init();
 </script>
-
 </body>
 </html>
