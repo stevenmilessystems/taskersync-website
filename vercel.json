@@ -27,5 +27,8 @@
     { "source": "/TermsOfService", "destination": "/terms-of-service", "permanent": true },
     { "source": "/TaskerSync", "destination": "/", "permanent": true },
     { "source": "/Home", "destination": "/", "permanent": true }
+    { "source": "/setup", "destination": "https://personal-life-assistant-app-50269d63.base44.app/setup" }
+
+
   ]
 }
