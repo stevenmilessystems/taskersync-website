@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Train Your AI Brain | TaskerSync</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.10);
+      max-width: 520px;
+      width: 100%;
+      overflow: hidden;
+      margin: 20px auto;
+    }
+    .card-header {
+      background: #111;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      background: #fff;
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .logo-name {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .card-body { padding: 32px; }
+    h1 { font-size: 22px; font-weight: 800; color: #111; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .subtitle { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+    label span { font-weight: 400; color: #999; font-size: 12px; margin-left: 4px; }
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #111;
+      background: #fafafa;
+      resize: vertical;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    textarea:focus, input[type="text"]:focus {
+      border-color: #111;
+      background: #fff;
+    }
+    textarea { min-height: 72px; }
+    .drive-section {
+      background: #f0f7ff;
+      border: 1.5px solid #d0e8ff;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+    .drive-section h3 { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .drive-section p { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 12px; }
+    .drive-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1.5px solid #d0e8ff;
+      color: #1a73e8;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .drive-btn:hover { background: #e8f0fe; border-color: #1a73e8; }
+    .drive-connected {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #0a7a3e;
+      font-weight: 600;
+    }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 24px;
+      letter-spacing: -0.2px;
+      transition: background 0.15s;
+    }
+    .submit-btn:hover { background: #333; }
+    .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+    .status-msg {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 12px;
+      min-height: 18px;
+      color: #666;
+    }
+    .status-msg.error { color: #c0392b; }
+    .status-msg.success { color: #0a7a3e; font-weight: 600; }
+    .done-card { padding: 40px 32px; text-align: center; }
+    .done-icon { font-size: 48px; margin-bottom: 16px; }
+    .done-card h1 { margin-bottom: 8px; }
+    .done-card p { font-size: 14px; color: #666; line-height: 1.6; }
+    .update-link { display: block; margin-top: 16px; font-size: 12px; color: #aaa; }
+    .error-card { padding: 40px 32px; text-align: center; }
+    .error-card h1 { color: #c0392b; margin-bottom: 8px; font-size: 18px; }
+    .error-card p { font-size: 14px; color: #666; }
+    .loading-card { padding: 40px 32px; text-align: center; }
+    .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid #e0e0e0; border-top-color: #111; border-radius: 50%; animation: spin 0.7s linear infinite; margin-bottom: 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hi-name { color: #111; font-weight: 800; }
+    .optional-note { font-size: 12px; color: #aaa; margin-top: 20px; text-align: center; }
+    .drive-url-input { margin-top: 10px; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <div class="logo-icon">⚡</div>
+    <div class="logo-name">TaskerSync</div>
+  </div>
+  <div id="app">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <p style="color:#666;font-size:14px;">Loading your profile...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONTEXT_API = "https://personal-life-assistant-bfa28ce4.base44.app/functions/saveClientContext";
+  const GOOGLE_CLIENT_ID = "704697751016-j3vk4pq57c71ber6imce919if2memq23.apps.googleusercontent.com";
+  const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.readonly";
+
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  const app = document.getElementById("app");
+
+  let clientName = "";
+  let googleDriveToken = "";
+
+  function render(html) { app.innerHTML = html; }
+
+  function showError(msg) {
+    render(`
+      <div class="error-card">
+        <h1>Oops</h1>
+        <p>${msg}</p>
+      </div>
+    `);
+  }
+
+  function showDone() {
+    render(`
+      <div class="done-card">
+        <div class="done-icon">🧠⚡</div>
+        <h1>Brain loaded, ${clientName.split(" ")[0]}!</h1>
+        <p>Your AI now knows your context. Every task you add will be answered with this in mind.</p>
+        <p style="margin-top:12px;font-size:13px;color:#aaa;">You can close this tab. Your TaskerSync is active.</p>
+        <a class="update-link" href="${window.location.href}">Update your context anytime →</a>
+      </div>
+    `);
+  }
+
+  function connectDrive() {
+    const tryInit = (attempts) => {
+      if (window.google && window.google.accounts) {
+        window.google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CLIENT_ID,
+          scope: DRIVE_SCOPE,
+          callback: (response) => {
+            if (response.error) {
+              document.getElementById("drive-status").textContent = "Google sign-in failed. Try again.";
+              return;
+            }
+            googleDriveToken = response.access_token;
+            document.getElementById("drive-btn-wrap").innerHTML = `
+              <div class="drive-connected">✅ Google Drive connected</div>
+            `;
+          },
+        }).requestAccessToken();
+      } else if (attempts > 0) {
+        setTimeout(() => tryInit(attempts - 1), 500);
+      } else {
+        document.getElementById("drive-status").textContent = "Google Sign-In failed to load. Refresh and try again.";
+      }
+    };
+    tryInit(10);
+  }
+
+  async function saveContext() {
+    const role = document.getElementById("f-role").value.trim();
+    const typical_week = document.getElementById("f-week").value.trim();
+    const big_projects = document.getElementById("f-projects").value.trim();
+    const contacts = document.getElementById("f-contacts").value.trim();
+    const response_style = document.getElementById("f-style").value.trim();
+    const extra = document.getElementById("f-extra").value.trim();
+    const drive_folder_url = document.getElementById("f-drive").value.trim();
+
+    if (!role && !typical_week && !extra) {
+      document.getElementById("status").textContent = "Please fill in at least one field before saving.";
+      document.getElementById("status").className = "status-msg error";
+      return;
+    }
+
+    const btn = document.getElementById("save-btn");
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    document.getElementById("status").textContent = "";
+
+    const payload = { token, role, typical_week, big_projects, contacts, response_style, extra, drive_folder_url };
+    if (googleDriveToken) payload.google_access_token = googleDriveToken;
+
+    try {
+      const res = await fetch(CONTEXT_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        showDone();
+      } else {
+        document.getElementById("status").textContent = data.error || "Something went wrong. Please try again.";
+        document.getElementById("status").className = "status-msg error";
+        btn.disabled = false;
+        btn.textContent = "Save my brain ⚡";
+      }
+    } catch (e) {
+      document.getElementById("status").textContent = "Network error. Check your connection and try again.";
+      document.getElementById("status").className = "status-msg error";
+      btn.disabled = false;
+      btn.textContent = "Save my brain ⚡";
+    }
+  }
+
+  function showForm(existingNotes, existingDriveUrl) {
+    // Pre-populate if they have existing notes
+    let roleVal = "", weekVal = "", projectsVal = "", contactsVal = "", styleVal = "", extraVal = "";
+    if (existingNotes && existingNotes.startsWith("BRAIN CONTEXT:")) {
+      const lines = existingNotes.split("\n");
+      for (const line of lines) {
+        if (line.startsWith("Role/Job:")) roleVal = line.replace("Role/Job:", "").trim();
+        else if (line.startsWith("Typical week:")) weekVal = line.replace("Typical week:", "").trim();
+        else if (line.startsWith("Current projects:")) projectsVal = line.replace("Current projects:", "").trim();
+        else if (line.startsWith("Key people/contacts:")) contactsVal = line.replace("Key people/contacts:", "").trim();
+        else if (line.startsWith("Preferred response style:")) styleVal = line.replace("Preferred response style:", "").trim();
+        else if (line.startsWith("Extra context:")) extraVal = line.replace("Extra context:", "").trim();
+      }
+    }
+
+    render(`
+      <div class="card-body">
+        <h1>Train your AI brain, <span class="hi-name">${clientName.split(" ")[0]}</span> ⚡</h1>
+        <p class="subtitle">The more context you give, the smarter your responses get. Fill in what you can - even a sentence per field makes a difference.</p>
+
+        <label>What do you do for work? <span>(job title, role, industry)</span></label>
+        <textarea id="f-role" placeholder="e.g. Pastor at a church of 300, also run a small e-commerce side business">${roleVal}</textarea>
+
+        <label>What does a typical week look like? <span>(optional)</span></label>
+        <textarea id="f-week" placeholder="e.g. Monday: staff meetings. Mid-week: sermon prep. Weekends: family. Always juggling 3-4 projects.">${weekVal}</textarea>
+
+        <label>Current big projects or priorities? <span>(optional)</span></label>
+        <textarea id="f-projects" placeholder="e.g. Launching new youth program in May, growing Shopify store to $5k/mo">${projectsVal}</textarea>
+
+        <label>Key people or contacts I should know about? <span>(optional)</span></label>
+        <textarea id="f-contacts" placeholder="e.g. My wife Bethany, kids Joash (9) and Zyna (7). Business partner Chris.">${contactsVal}</textarea>
+
+        <label>How do you like responses? <span>(optional)</span></label>
+        <input type="text" id="f-style" placeholder="e.g. Short and direct. Use bullet points. No fluff." value="${styleVal}" />
+
+        <label>Anything else your AI should know? <span>(optional)</span></label>
+        <textarea id="f-extra" placeholder="e.g. I'm based in Darwin, Australia (UTC+9:30). I prefer practical over theoretical.">${extraVal}</textarea>
+
+        <div class="drive-section">
+          <h3>📁 Link a Google Drive folder <span style="font-weight:400;color:#999;font-size:12px;">(optional)</span></h3>
+          <p>Got documents, SOPs, or reference files? Paste a Drive folder link and your AI can read them for deeper context.</p>
+          <div class="drive-url-input">
+            <input type="text" id="f-drive" placeholder="https://drive.google.com/drive/folders/..." value="${existingDriveUrl}" />
+          </div>
+          <div style="margin-top:10px;" id="drive-btn-wrap">
+            ${googleDriveToken
+              ? '<div class="drive-connected">✅ Google Drive connected</div>'
+              : `<button class="drive-btn" onclick="connectDrive()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Connect Google Drive (optional)
+                </button>`
+            }
+          </div>
+          <div id="drive-status" style="font-size:12px;color:#c0392b;margin-top:6px;"></div>
+        </div>
+
+        <button class="submit-btn" id="save-btn" onclick="saveContext()">Save my brain ⚡</button>
+        <div class="status-msg" id="status"></div>
+        <p class="optional-note">You can update this anytime by revisiting this link.</p>
+      </div>
+    `);
+  }
+
+  async function init() {
+    if (!token) {
+      showError("No setup link found. Please use the link from your welcome email.");
+      return;
+    }
+    try {
+      const res = await fetch(`${CONTEXT_API}?token=${encodeURIComponent(token)}`);
+      const data = await res.json();
+      if (!data.ok) {
+        showError(data.error || "Invalid or expired link. Please contact Steven for a new one.");
+        return;
+      }
+      clientName = data.client_name || "there";
+      showForm(data.existing_notes || "", data.existing_drive_url || "");
+    } catch (e) {
+      showError("Could not load your profile. Check your connection and try again.");
+    }
+  }
+
+  init();
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+</html>
