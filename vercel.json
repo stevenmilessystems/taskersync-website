@@ -3,17 +3,6 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.taskersync.com"
-        }
-      ],
-      "destination": "https://taskersync.com/$1",
-      "permanent": true
-    },
-    {
       "source": "/AiToolsForPastors",
       "destination": "/ai-tools-for-pastors",
       "permanent": true
