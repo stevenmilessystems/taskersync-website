@@ -2,34 +2,141 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/AiToolsForPastors", "destination": "/ai-tools-for-pastors", "permanent": true },
-    { "source": "/PastorProductivityTools", "destination": "/pastor-productivity-tools", "permanent": true },
-    { "source": "/GoogleTasksForMinistry", "destination": "/google-tasks-for-ministry", "permanent": true },
-    { "source": "/GoogleTasksAutomation", "destination": "/google-tasks-automation", "permanent": true },
-    { "source": "/GoogleTasksTips", "destination": "/google-tasks-tips", "permanent": true },
-    { "source": "/BestGoogleTasksAlternatives", "destination": "/best-google-tasks-alternatives", "permanent": true },
-    { "source": "/BestTaskManagementApps2025", "destination": "/best-task-management-apps-2025", "permanent": true },
-    { "source": "/BestProductivityToolsEntrepreneurs", "destination": "/best-productivity-tools-entrepreneurs", "permanent": true },
-    { "source": "/ProductivityToolsForExecutives", "destination": "/productivity-tools-for-executives", "permanent": true },
-    { "source": "/TaskManagementForBusinessOwners", "destination": "/task-management-for-business-owners", "permanent": true },
-    { "source": "/AiTaskAssistantBusyProfessionals", "destination": "/ai-task-assistant-busy-professionals", "permanent": true },
-    { "source": "/AiForSmallBusinessOwners", "destination": "/ai-for-small-business-owners", "permanent": true },
-    { "source": "/AiPersonalAssistantTools2025", "destination": "/ai-personal-assistant-tools-2025", "permanent": true },
-    { "source": "/HowToBeMoreOrganisedAtWork", "destination": "/how-to-be-more-organised-at-work", "permanent": true },
-    { "source": "/HowToGetMoreDoneInLessTime", "destination": "/how-to-get-more-done-in-less-time", "permanent": true },
-    { "source": "/ProductivityForPeopleWhoHateApps", "destination": "/productivity-for-people-who-hate-apps", "permanent": true },
-    { "source": "/ProductivitySystemForOverwhelmedPeople", "destination": "/productivity-system-for-overwhelmed-people", "permanent": true },
-    { "source": "/TimeManagementBusyParents", "destination": "/time-management-busy-parents", "permanent": true },
-    { "source": "/AiToolsForChurchLeaders", "destination": "/ai-tools-for-church-leaders", "permanent": true },
-    { "source": "/Privacy", "destination": "/privacy-policy", "permanent": true },
-    { "source": "/PrivacyPolicy", "destination": "/privacy-policy", "permanent": true },
-    { "source": "/Terms", "destination": "/terms-of-service", "permanent": true },
-    { "source": "/TermsOfService", "destination": "/terms-of-service", "permanent": true },
-    { "source": "/TaskerSync", "destination": "/", "permanent": true },
-    { "source": "/Home", "destination": "/", "permanent": true }
+    {
+      "source": "https://www.taskersync.com/:path*",
+      "destination": "https://taskersync.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/AiToolsForPastors",
+      "destination": "/ai-tools-for-pastors",
+      "permanent": true
+    },
+    {
+      "source": "/PastorProductivityTools",
+      "destination": "/pastor-productivity-tools",
+      "permanent": true
+    },
+    {
+      "source": "/GoogleTasksForMinistry",
+      "destination": "/google-tasks-for-ministry",
+      "permanent": true
+    },
+    {
+      "source": "/GoogleTasksAutomation",
+      "destination": "/google-tasks-automation",
+      "permanent": true
+    },
+    {
+      "source": "/GoogleTasksTips",
+      "destination": "/google-tasks-tips",
+      "permanent": true
+    },
+    {
+      "source": "/BestGoogleTasksAlternatives",
+      "destination": "/best-google-tasks-alternatives",
+      "permanent": true
+    },
+    {
+      "source": "/BestTaskManagementApps2025",
+      "destination": "/best-task-management-apps-2025",
+      "permanent": true
+    },
+    {
+      "source": "/BestProductivityToolsEntrepreneurs",
+      "destination": "/best-productivity-tools-entrepreneurs",
+      "permanent": true
+    },
+    {
+      "source": "/ProductivityToolsForExecutives",
+      "destination": "/productivity-tools-for-executives",
+      "permanent": true
+    },
+    {
+      "source": "/TaskManagementForBusinessOwners",
+      "destination": "/task-management-for-business-owners",
+      "permanent": true
+    },
+    {
+      "source": "/AiTaskAssistantBusyProfessionals",
+      "destination": "/ai-task-assistant-busy-professionals",
+      "permanent": true
+    },
+    {
+      "source": "/AiForSmallBusinessOwners",
+      "destination": "/ai-for-small-business-owners",
+      "permanent": true
+    },
+    {
+      "source": "/AiPersonalAssistantTools2025",
+      "destination": "/ai-personal-assistant-tools-2025",
+      "permanent": true
+    },
+    {
+      "source": "/HowToBeMoreOrganisedAtWork",
+      "destination": "/how-to-be-more-organised-at-work",
+      "permanent": true
+    },
+    {
+      "source": "/HowToGetMoreDoneInLessTime",
+      "destination": "/how-to-get-more-done-in-less-time",
+      "permanent": true
+    },
+    {
+      "source": "/ProductivityForPeopleWhoHateApps",
+      "destination": "/productivity-for-people-who-hate-apps",
+      "permanent": true
+    },
+    {
+      "source": "/ProductivitySystemForOverwhelmedPeople",
+      "destination": "/productivity-system-for-overwhelmed-people",
+      "permanent": true
+    },
+    {
+      "source": "/TimeManagementBusyParents",
+      "destination": "/time-management-busy-parents",
+      "permanent": true
+    },
+    {
+      "source": "/AiToolsForChurchLeaders",
+      "destination": "/ai-tools-for-church-leaders",
+      "permanent": true
+    },
+    {
+      "source": "/Privacy",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/PrivacyPolicy",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/Terms",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/TermsOfService",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/TaskerSync",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Home",
+      "destination": "/",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/setup", "destination": "https://personal-life-assistant-app-50269d63.base44.app/setup" }
+    {
+      "source": "/setup",
+      "destination": "https://personal-life-assistant-app-50269d63.base44.app/setup"
+    }
   ]
 }
-
