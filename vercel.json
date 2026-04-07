@@ -3,8 +3,14 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "https://www.taskersync.com/:path*",
-      "destination": "https://taskersync.com/:path*",
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.taskersync.com"
+        }
+      ],
+      "destination": "https://taskersync.com/$1",
       "permanent": true
     },
     {
