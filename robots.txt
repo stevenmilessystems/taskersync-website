@@ -3,4 +3,4 @@ Allow: /
 Disallow: /setup
 Disallow: /brain
 
-Sitemap: https://www.taskersync.com/sitemap.xml
+Sitemap: https://taskersync.com/sitemap.xml
