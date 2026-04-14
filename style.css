@@ -1,6 +1,6 @@
 *,*::before,*::after{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
-body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:#0d0d0d;overflow-x:hidden;}
+body{margin:0;font-family:"Inter",system-ui,-apple-system,sans-serif;background:#fff;color:#0d0d0d;overflow-x:hidden;}
 a{color:inherit;}img{max-width:100%;height:auto;}
 /* Nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:199;display:flex;justify-content:space-between;align-items:center;padding:0 40px;height:64px;background:rgba(255,255,255,0.93);backdrop-filter:blur(14px);border-bottom:1px solid #f0f0f0;}
@@ -9,7 +9,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:199;display:flex;justify-content
 .nav-logo-text{font-weight:700;font-size:17px;letter-spacing:-0.4px;}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{color:#222;text-decoration:none;font-size:14px;font-weight:500;}
-.nav-cta{background:#0d0d0d;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
+.nav-cta{background:#0d0d0d !important;color:#fff !important;border:none;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none !important;display:inline-block;}
+.nav-cta:hover{background:#333 !important;color:#fff !important;}
 /* Hero */
 .hero{padding:140px 24px 80px;text-align:center;max-width:860px;margin:0 auto;}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;background:#f5f5f5;border:1px solid #e8e8e8;border-radius:20px;padding:6px 14px;font-size:13px;color:#555;margin-bottom:32px;font-weight:500;}
@@ -17,7 +18,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:199;display:flex;justify-content
 .hero h1{font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1.08;letter-spacing:-2.5px;margin:0 auto 28px;color:#0d0d0d;}
 .hero-sub{font-size:20px;color:#333;max-width:520px;margin:0 auto 44px;line-height:1.65;font-weight:400;}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-black{background:#0d0d0d;color:#fff;border:none;padding:15px 32px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.15);text-decoration:none;display:inline-block;}
+.btn-black{background:#0d0d0d;color:#fff !important;border:none;padding:15px 32px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.15);text-decoration:none !important;display:inline-block;}
+.btn-black:hover{background:#333;color:#fff !important;}
 .btn-outline{background:#fff;color:#0d0d0d;border:2px solid #0d0d0d;padding:15px 32px;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;display:inline-block;}
 .hero-note{color:#aaa;font-size:13px;margin-top:18px;}
 /* Sections */
@@ -42,7 +44,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:199;display:flex;justify-content
 .pricing-features li{padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:15px;display:flex;gap:10px;align-items:flex-start;}
 .pricing-features li:last-child{border-bottom:none;}
 .check{color:#22c55e;font-weight:700;flex-shrink:0;}
-.btn-white{background:#fff;color:#0d0d0d;border:none;padding:16px 36px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;width:100%;text-decoration:none;display:block;}
+.btn-white{background:#fff;color:#0d0d0d !important;border:none;padding:16px 36px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;width:100%;text-decoration:none !important;display:block;}
+.btn-white:hover{background:#f0f0f0;}
 /* FAQ */
 .faq-list{max-width:680px;margin:0 auto;}
 .faq-item{border-bottom:1px solid #f0f0f0;padding:20px 0;}
@@ -56,9 +59,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:199;display:flex;justify-content
 .blog-article ul,.blog-article ol{padding-left:24px;}
 .blog-article a{color:#0d0d0d;font-weight:600;}
 .blog-meta{color:#444;font-size:15px;margin-bottom:40px;}
-.blog-cta-box{background:#0d0d0d;color:#fff;padding:40px 32px;border-radius:16px;margin:60px 0;text-align:center;}
-.blog-cta-box h2{color:#fff;font-size:24px;margin:0 0 12px;}
-.blog-cta-box p{color:#ccc;margin:0 0 24px;font-size:15px;}
+/* Blog CTA box - main conversion block */
+.blog-cta-box{background:#0d0d0d;color:#fff;padding:48px 40px;border-radius:20px;margin:60px 0;text-align:center;}
+.blog-cta-box h2{color:#fff !important;font-size:26px;margin:0 0 12px;font-weight:800;}
+.blog-cta-box p{color:#bbb;margin:0 0 28px;font-size:16px;line-height:1.6;}
+.blog-cta-box .btn-try{background:#fff;color:#0d0d0d !important;border:none;padding:16px 36px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none !important;display:inline-block;margin:0 8px 12px;}
+.blog-cta-box .btn-try:hover{background:#f0f0f0;}
+.blog-cta-box .btn-learn{background:transparent;color:#fff !important;border:2px solid rgba(255,255,255,0.3);padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none !important;display:inline-block;margin:0 8px 12px;}
+.blog-cta-box .btn-learn:hover{border-color:rgba(255,255,255,0.7);}
+.blog-cta-trial{font-size:13px;color:#666;margin-top:14px;}
+/* Inline mid-article CTA */
+.blog-mid-cta{background:#f8f8f8;border:1.5px solid #ebebeb;border-radius:14px;padding:28px 32px;margin:40px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.blog-mid-cta p{margin:0;font-size:15px;font-weight:600;color:#0d0d0d;flex:1;}
+.blog-mid-cta .btn-try-now{background:#0d0d0d;color:#fff !important;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none !important;white-space:nowrap;display:inline-block;}
 .back-link{font-size:13px;color:#444;text-decoration:none;display:inline-block;margin-bottom:32px;}
 /* Footer */
 footer{background:#0d0d0d;color:#aaa;padding:48px 24px;text-align:center;font-size:13px;margin-top:80px;}
@@ -69,7 +82,7 @@ footer .footer-logo-icon{width:28px;height:28px;background:#1a1a1a;border-radius
 /* Mobile */
 @media(max-width:600px){
   nav{padding:0 20px;}
-  .nav-links{display:none;}
+  .nav-links .nav-home{display:none;}
   .hero{padding:100px 20px 60px;}
   .hero h1{letter-spacing:-1.5px;}
   .hero-sub{font-size:17px;}
@@ -78,4 +91,6 @@ footer .footer-logo-icon{width:28px;height:28px;background:#1a1a1a;border-radius
   .blog-article{padding:80px 20px 40px;}
   .blog-article h1{font-size:26px !important;}
   .blog-article h2{font-size:19px !important;}
+  .blog-cta-box{padding:36px 24px;}
+  .blog-mid-cta{flex-direction:column;align-items:flex-start;}
 }
