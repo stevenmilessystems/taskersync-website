@@ -23,7 +23,7 @@
 <body>
 <nav>
   <a class="nav-logo" href="/"><div class="nav-logo-icon">&#9889;</div><span class="nav-logo-text">TaskerSync</span></a>
-  <div class="nav-links"><a href="/">Home</a><a class="nav-cta" href="/#pricing">Get started</a></div>
+  <div class="nav-links"><a class="nav-home" href="/">Home</a><a class="nav-cta" href="https://taskersync.com/#pricing">Get started</a></div>
 </nav>
 <article class="blog-article">
   <a class="back-link" href="/">&larr; Back to TaskerSync</a>
@@ -41,10 +41,14 @@
 <h2>9. Archive Completed Lists</h2><p>Periodically archive or clear completed tasks. A clean list reduces cognitive noise significantly.</p>
 <h2>10. Automate the Follow-Through</h2><p>The best upgrade you can give Google Tasks is TaskerSync - an AI that reads your tasks and actions them automatically. Add the task. Come back to the answer.</p>
   <div class="blog-cta-box">
-  <h2>Your tasks, actioned in seconds.</h2>
-  <p>TaskerSync connects to Google Tasks and actions them automatically. Research, drafts, answers - all written back into your notes.</p>
-  <a class="btn-black" href="/#pricing" style="display:inline-block;padding:14px 28px;border-radius:8px;font-size:15px;">Try free for 7 days &rarr;</a>
-</div>
+    <h2>Your tasks, actioned in seconds.</h2>
+    <p>TaskerSync connects to Google Tasks and actions them automatically. Research, drafts, answers - all written back into your notes.</p>
+    <div style="margin-bottom:8px;">
+      <a class="btn-try" href="https://taskersync.com/#pricing" onclick="(function(e){e.preventDefault();fetch('https://personal-life-assistant-bfa28ce4.base44.app/functions/createCheckoutSession',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId:'price_1TGH3CPD8G4Z7NcBbf6sYq5e'})}).then(r=>r.json()).then(d=>{if(d.url)window.location.href=d.url;});return false;})(event)">Start free trial &rarr;</a>
+      <a class="btn-learn" href="https://taskersync.com/">See how it works</a>
+    </div>
+    <p class="blog-cta-trial">7-day free trial &middot; No credit card charged today &middot; Cancel anytime</p>
+  </div>
   <div class="related-articles" style="margin-top:40px;padding-top:32px;border-top:1px solid #eee;">
   <h2 style="font-size:20px;margin-bottom:16px;">Related Articles</h2>
   <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:12px;">
@@ -62,3 +66,4 @@
 </footer>
 </body>
 </html>
+
